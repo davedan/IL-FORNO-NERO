@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro'
+import { fallbackMenu } from '../lib/menu'
+const campaigns = [{ title: 'Menú del mediodía', body: 'Pizza clásica, bebida y postre de martes a viernes al mediodía.', cta: 'Ver carta', url: '#carta' }]
+---
+<Base>
+  <header class="shell nav"><a class="brand" href="/">Il Forno Nero</a><nav class="navlinks"><a href="#carta">Carta</a><a href="#reservas">Reservas</a><a href="#recogida">Recogida</a><a href="/delivery">Delivery</a></nav></header>
+  <main>
+    <section class="hero"><div><p class="eyebrow">Pizzería napoletana · Chueca, Madrid</p><h1>El fuego que<br /><em>nunca se apaga.</em></h1><p class="lead">Masa madre, horno de leña y la tradición de Nápoles. Ahora también puedes reservar o pedir para recoger desde la web.</p><a class="button" href="#carta">Ver carta</a><a class="button alt" href="#reservas">Reservar mesa</a></div></section>
+    <section id="carta" class="menu"><div class="shell"><p class="eyebrow">La carta</p><h2>Producto italiano, fuego vivo.</h2><div class="grid">{fallbackMenu.map((category) => <div class="category"><h3>{category.name}</h3>{category.items.map((item) => <article class="item"><div class="itemhead"><span>{item.name}{item.vegetarian && ' · V'}</span><span>{item.price.toFixed(2)} €</span></div><p>{item.description}</p>{!item.available && <span class="note">No disponible</span>}</article>)}</div>)}</div></div></section>
+    <section id="reservas"><div class="shell split"><div><p class="eyebrow">Reservas</p><h2>Reserva tu mesa.</h2><p class="lead">Tu solicitud se registra para que el equipo la confirme personalmente.</p></div><form class="panel" data-operation="reservation"><label>Nombre<input name="name" required /></label><label>Email<input type="email" name="email" required /></label><label>Teléfono<input name="telephone" required /></label><label>Fecha<input type="date" name="date" required /></label><label>Hora<input type="time" name="time" required /></label><label>Personas<input type="number" name="people" min="1" required /></label><button class="button" type="submit">Enviar solicitud</button><p class="note" data-message></p></form></div></section>
+    <section id="recogida" class="menu"><div class="shell split"><div><p class="eyebrow">Click & collect</p><h2>Recógelo en 30 o 45 minutos.</h2><p class="lead">El pago de esta fase es una simulación: no se realiza ningún cobro real.</p></div><form class="panel" data-operation="order"><label>Nombre<input name="name" required /></label><label>Email<input type="email" name="email" required /></label><label>Teléfono<input name="telephone" required /></label><label>Recogida<select name="pickupMinutes"><option value="30">En 30 minutos</option><option value="45">En 45 minutos</option></select></label><input type="hidden" name="paymentMode" value="simulated" /><button class="button" type="submit">Confirmar pedido simulado</button><p class="note" data-message></p></form></div></section>
+  </main>
+  <footer><div class="shell">Il Forno Nero · Calle de la Reina, 14 · Madrid</div></footer>
+  {campaigns.map((campaign, index) => <dialog data-campaign={index}><button class="close" type="button" aria-label="Cerrar">×</button><p class="eyebrow">Oferta flash</p><h2>{campaign.title}</h2><p>{campaign.body}</p><a class="button" href={campaign.url}>{campaign.cta}</a></dialog>)}
+  <script define:vars={{ campaigns }}>
+    const cms = import.meta.env.PUBLIC_CMS_URL || 'http://localhost:3001'
+    const dialogs = [...document.querySelectorAll('dialog[data-campaign]')]
+    const showNext = (index = 0) => { const dialog = dialogs[index]; if (!dialog) return; dialog.showModal(); dialog.querySelector('.close')?.addEventListener('click', () => { dialog.close(); showNext(index + 1) }, { once: true }) }
+    showNext()
+    document.querySelectorAll('form[data-operation]').forEach((form) => form.addEventListener('submit', async (event) => { event.preventDefault(); const message = form.querySelector('[data-message]'); const data = Object.fromEntries(new FormData(form)); if (form.dataset.operation === 'order') data.items = [{ productName: 'Pedido pendiente de selección CMS', unitPrice: 0, quantity: 1 }]; try { const endpoint = form.dataset.operation === 'reservation' ? 'reservations' : 'orders'; const response = await fetch(`${cms}/api/${endpoint}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }); if (!response.ok) throw new Error(); message.textContent = 'Solicitud registrada. El equipo se pondrá en contacto contigo.'; form.reset(); } catch { message.textContent = 'No se ha podido registrar la solicitud. Llámanos para atenderte.' } }))
+  </script>
+</Base>
