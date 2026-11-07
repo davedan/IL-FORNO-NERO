@@ -16,11 +16,12 @@ The obsolete local-adapter blocker is **resolved** for Development. Development 
 
 ## Required delivery evidence
 
-1. Lockfile-pinned supported Astro, Payload and SQLite3 dependencies; no secrets in Git.
-2. CI build and project tests, including public flows, CMS authorization, approval flow, reservation/order validation and simulated-payment wording.
-3. WCAG 2.2 AA, responsive, navigation/link, SEO and performance evidence required by the Website target.
-4. Independent QA evidence and explicit disposition of project dependency-security findings before a release claim.
-5. Project-specific hosting, recovery, monitoring and legal/privacy approvals before production deployment.
+1. Establish the GitHub Actions build/test gate before merging implementation work; no project workflow/status evidence existed at the revalidation commit.
+2. Lockfile-pinned supported Astro, Payload and SQLite3 dependencies; no secrets in Git.
+3. CI build and project tests, including public flows, CMS authorization, approval flow, reservation/order validation and simulated-payment wording.
+4. WCAG 2.2 AA, responsive, navigation/link, SEO and performance evidence required by the Website target.
+5. Independent QA evidence and explicit disposition of project dependency-security findings before a release claim.
+6. Project-specific hosting, recovery, monitoring and legal/privacy approvals before production deployment.
 
 ## Out of scope for this handoff
 

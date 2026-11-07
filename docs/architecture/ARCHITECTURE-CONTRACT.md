@@ -74,6 +74,7 @@ The initial finding was not a published project Architecture Contract or depende
 | DEP-ARCH-002 | Release gate | Hosting, domain/TLS, backup/recovery, observability and production deployment require project-specific approval and evidence. |
 | DEP-ARCH-003 | Release gate | Legal validation of indefinite personal-data retention remains Product Owner-owned. |
 | DEP-ARCH-004 | Development verification | The implementation must pin supported Astro/Payload/SQLite3 dependencies in its lockfile and demonstrate the selected SQLite3 integration in normal GitHub Actions. This is not a local-adapter requirement. |
+| DEP-ARCH-005 | First development gate | At revalidation, commit `5ab4c3c` has no GitHub commit statuses or configured project CI evidence. The first Development work unit must establish the standard GitHub Actions build/test gate before implementation work is merged. |
 
 None of these entries blocks the standard BMSF Development handoff. They do block the affected production/release claims until resolved or explicitly accepted by their owners.
 
