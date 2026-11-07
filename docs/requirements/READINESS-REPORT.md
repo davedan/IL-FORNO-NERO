@@ -1,10 +1,10 @@
 # Functional Requirements Readiness Report — Il Forno Nero
 
-> External Business Analysis preflight against PDD content `9e54d1350525f2fee540e77e0d5d83d133e0897e`; not a BMSF approval.
+> External Business Analysis preflight against the Product Owner-approved PDD and FR baseline; canonical BMSF adoption remains separate.
 
 ## Result
 
-**Status: NEEDS_DECISIONS.** The package provides coverage for every in-scope PDD capability and testable paths for public, employee, owner and global-administrator journeys. It can inform preliminary Architecture analysis, but it is not ready for a formal architecture handoff or implementation baseline.
+**Status: APPROVED_FOR_ARCHITECTURE_REVIEW.** The Product Owner has approved the PDD and FR as the project's external baseline. The package provides coverage for every in-scope PDD capability and testable paths for public, employee, owner and global-administrator journeys. It is ready for Architecture review; canonical BMSF adoption and target execution readiness remain separate gates.
 
 ## Coverage
 
@@ -16,7 +16,7 @@
 
 | ID | Severity | Finding | Owner / disposition |
 | --- | --- | --- | --- |
-| FIND-0001 | BLOCKING | The PDD and this functional package are external documents, not formally registered BMSF artifacts with canonical metadata and approval evidence. | BMSF adoption workflow required. |
+| FIND-0001 | HIGH | The approved PDD and FR are external project artifacts, not formally registered BMSF artifacts with canonical metadata. | BMSF adoption workflow required before a canonical BMSF development baseline. |
 | FIND-0002 | HIGH | Indefinite retention of personal data needs Product Owner legal validation before release. | Product Owner; open. |
 | FIND-0003 | HIGH | The selected configuration supports CMS and public rendering, but deployment is unknown and no adapter is available. | Software Architect; target dependency. |
 | FIND-0004 | HIGH | Simulated checkout must be visibly separated from real payment and cannot imply a financial transaction. | Architecture and QA; open. |
@@ -25,7 +25,7 @@
 
 ## Recommended next step
 
-1. Publish and review this package as the external BA baseline.
-2. Request BMSF adoption/validation if available.
-3. Allow Architecture to conduct preliminary design with the listed blockers and target dependencies explicit.
+1. Use this approved package as the external Architecture baseline.
+2. Request BMSF adoption/validation if a canonical BMSF development baseline is required.
+3. Allow Architecture to conduct design with the listed release blockers and target dependencies explicit.
 4. Do not authorize production deployment until the blocking/high findings are resolved or formally accepted.

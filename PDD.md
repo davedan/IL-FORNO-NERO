@@ -1,6 +1,6 @@
 # Product Definition — Il Forno Nero
 
-> External authoring candidate. This document is a draft for Product Owner review; it is not a BMSF-approved artifact.
+> External product baseline, **APPROVED_BY_PRODUCT_OWNER** for Architecture review on 7 November 2026. It is published in this repository but has not been adopted as a canonical BMSF artifact.
 
 ## Problem
 
@@ -200,8 +200,8 @@ El MVP incluye la migración visual y funcional de la web, CMS interno con permi
 
 ## Product Owner review
 
-- **Estado:** ACCEPTED_BY_PRODUCT_OWNER — revisado y aceptado por el Product Owner el 7 de noviembre de 2026.
-- **Aprobación BMSF:** este documento externo no sustituye la aprobación canónica BMSF; su adopción y los handoffs posteriores conservan las decisiones abiertas registradas.
+- **Estado:** APPROVED_BY_PRODUCT_OWNER — línea base de producto revisada y aprobada para Arquitectura el 7 de noviembre de 2026.
+- **Aprobación BMSF:** esta aprobación externa es válida como línea base del proyecto, pero no sustituye una futura adopción canónica BMSF ni elimina las decisiones abiertas registradas.
 - **Publicación:** autorizada por el Product Owner en la rama principal.
 
 ## Traceability

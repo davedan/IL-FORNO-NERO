@@ -1,6 +1,6 @@
 # Decisions Register — Il Forno Nero
 
-> External Business Analysis proposal. Source PDD content: `9e54d1350525f2fee540e77e0d5d83d133e0897e`.
+> External Business Analysis proposal. Source PDD content: `f046ed0718cadcea36a67ac8ca74563fae13ad06`.
 
 ## Confirmed
 
@@ -17,6 +17,7 @@
 | DEC-0009 | Internal accounts use manually delivered temporary passwords and mandatory first-login replacement. |
 | DEC-0010 | Deactivated accounts lose access immediately. |
 | DEC-0011 | Contact records are retained indefinitely, pending legal validation. |
+| DEC-0020 | SQLite3 is the selected MVP persistence engine; PostgreSQL is not part of this solution unless a superseding architecture decision is approved. |
 
 ## Deferred
 

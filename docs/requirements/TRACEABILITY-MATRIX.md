@@ -1,6 +1,6 @@
 # Traceability Matrix — Il Forno Nero
 
-> External Business Analysis proposal. Source PDD content: `9e54d1350525f2fee540e77e0d5d83d133e0897e`.
+> External Business Analysis proposal. Source PDD content: `f046ed0718cadcea36a67ac8ca74563fae13ad06`.
 
 | PDD reference | Functional requirements | Primary verification |
 | --- | --- | --- |
