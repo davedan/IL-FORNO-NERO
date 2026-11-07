@@ -38,6 +38,8 @@ No se establece una meta de ventas o conversión hasta disponer de una línea ba
 - **PR-0004 — Menor fricción.** Las reservas y pedidos se realizan como invitado, sin cuenta de cliente.
 - **PR-0005 — Datos mínimos.** El email del visitante se almacena para la operación de la reserva o pedido; no se usa para marketing en el MVP.
 - **PR-0006 — Publicación controlada.** Los cambios editoriales de empleados requieren aprobación de un dueño antes de hacerse públicos.
+- **PR-0007 — Operación asistida.** Las cancelaciones y modificaciones posteriores a una llamada del cliente las realiza únicamente el equipo interno.
+- **PR-0008 — Seguridad de acceso.** Las cuentas internas usan una contraseña temporal de entrega manual, obligatoria de cambiar en el primer acceso; su desactivación revoca el acceso de inmediato.
 
 ### Decisión de tipo y perfil BMSF
 
@@ -57,6 +59,10 @@ No se establece una meta de ventas o conversión hasta disponer de una línea ba
 | PR-0006 | Pedido de recogida con pago simulado y preparación para una franja seleccionada. |
 | PR-0007 | Campaña flash configurable mostrada en la primera visita mientras esté vigente. |
 | PR-0008 | Personalizaciones configurables por producto, sin impacto en precio en el MVP. |
+| PR-0009 | Datos obligatorios de contacto: nombre, email y teléfono para reservas y pedidos. |
+| PR-0010 | Operación manual de cancelaciones, modificaciones y conflictos de reservas por el equipo interno. |
+| PR-0011 | Campañas flash múltiples, activables y programables por fecha, día de semana y franja horaria. |
+| PR-0012 | Gestión de cuentas internas con contraseña temporal, cambio obligatorio y revocación inmediata. |
 
 ## Out of scope
 
@@ -95,43 +101,49 @@ No se establece una meta de ventas o conversión hasta disponer de una línea ba
 - **Actores:** empleados y dueños.
 - **Objetivo:** permitir que el negocio gestione la carta que consume la web pública.
 - **Datos por producto:** nombre, descripción, precio, categoría, imagen, ingredientes, alérgenos, etiquetas alimentarias —incluidos vegetariano y sin gluten—, disponibilidad temporal y personalizaciones sin cambio de precio.
-- **Reglas:** empleados preparan cambios pendientes; un dueño aprueba o rechaza cada cambio sin comentarios ni historial avanzado. Los dueños pueden gestionar contenido publicado directamente.
+- **Reglas:** empleados preparan cambios pendientes; un dueño aprueba o rechaza cada cambio sin comentarios ni historial avanzado. Los dueños pueden gestionar contenido publicado directamente. Un producto no disponible continúa visible en la carta, marcado como no disponible y excluido de los pedidos.
 - **Aceptación:** al aprobar un cambio, la web pública muestra la nueva información; al rechazarlo, mantiene la versión publicada.
 - **Prioridad:** 2.
 
 ### CAP-0004 — Campañas flash administrables
 
 - **Actores:** empleados, dueños y visitantes.
-- **Objetivo:** comunicar una oferta flash, menú del día u otra campaña temporal en la primera entrada de un visitante.
-- **Datos:** texto, imagen, llamada a la acción, fecha de inicio y fecha de fin.
-- **Reglas:** una campaña solo se muestra mientras esté vigente. Los cambios hechos por empleados requieren aprobación de un dueño antes de publicarse.
-- **Aceptación:** una campaña aprobada y activa se muestra una vez en la primera visita; una campaña inactiva o pendiente no se muestra.
+- **Objetivo:** comunicar una oferta flash, menú del día u otra campaña temporal en cada entrada de un visitante mientras cumpla su programación.
+- **Datos:** texto, imagen, llamada a la acción, estado activa/inactiva, fecha de inicio y fin, días de semana y franja horaria.
+- **Reglas:** una campaña solo se muestra si está activa y su programación se cumple. Puede haber varias campañas válidas; se muestran secuencialmente en cada entrada del visitante. Los cambios hechos por empleados requieren aprobación de un dueño antes de publicarse. No existe prioridad configurable en el MVP.
+- **Aceptación:** una campaña inactiva, pendiente o fuera de su programación no se muestra; todas las campañas válidas se muestran de forma secuencial.
 - **Prioridad:** 4.
 
 ### CAP-0005 — Reservas operativas
 
 - **Actores:** visitantes y usuarios internos.
-- **Flujo principal:** el visitante selecciona fecha, hora disponible, número de personas y datos de contacto; la reserva se registra como solicitada. El equipo consulta y actualiza su estado.
+- **Flujo principal:** el visitante aporta nombre, email y teléfono, selecciona fecha, hora disponible y número de personas; la reserva se registra como solicitada. El equipo consulta, modifica sus datos si el cliente llama y actualiza su estado.
 - **Estados permitidos:** solicitada, confirmada, cancelada y completada.
-- **Reglas:** los dueños configuran franjas reservables y cierres excepcionales desde el CMS. La confirmación es manual; no se promete disponibilidad automática.
-- **Aceptación:** cualquier usuario interno puede consultar todas las solicitudes y actualizar su estado; la web no muestra franjas cerradas.
+- **Reglas:** los dueños configuran franjas reservables y cierres excepcionales desde el CMS. La confirmación, cancelación y resolución de solicitudes coincidentes son manuales; no se promete disponibilidad automática. Los visitantes no cancelan desde la web.
+- **Aceptación:** cualquier usuario interno puede consultar, modificar y actualizar todas las solicitudes; la web no muestra franjas cerradas.
 - **Prioridad:** 3.
 
 ### CAP-0006 — Pedido de recogida
 
 - **Actores:** visitantes y usuarios internos.
-- **Flujo principal:** el visitante selecciona productos, cantidades y las personalizaciones configuradas para cada producto, sin cambio de precio; aporta datos de contacto y elige recogida en 30 o 45 minutos. Completa un pago simulado y el pedido se guarda como pagado.
+- **Flujo principal:** el visitante selecciona productos disponibles, cantidades y las personalizaciones configuradas para cada producto, sin cambio de precio; aporta nombre, email y teléfono y elige recogida en 30 o 45 minutos. Completa un pago simulado y el pedido se guarda como pagado.
 - **Estados permitidos:** pagado, en preparación, listo para recoger, recogido y cancelado.
-- **Reglas:** los pedidos se hacen desde la web pública; el CMS no se expone al visitante. Todas las personas internas pueden consultar y actualizar los pedidos.
+- **Reglas:** los pedidos se hacen desde la web pública; el CMS no se expone al visitante. Todas las personas internas pueden consultar, modificar, cancelar y actualizar los pedidos tras una llamada del cliente. Los visitantes no los cancelan desde la web.
 - **Aceptación:** el pedido creado aparece para el equipo como pagado, con su hora de recogida y personalizaciones.
 - **Prioridad:** 3.
 
 ### CAP-0007 — Contacto y uso de datos
 
 - **Actores:** visitantes y usuarios internos.
-- **Reglas:** se guarda el email con la reserva o pedido para permitir contacto manual del equipo. No hay envíos automáticos ni uso promocional en el MVP.
-- **Aceptación:** el email es visible únicamente para usuarios internos autorizados al consultar la operación correspondiente.
-- **Prioridad:** 3.
+- **Reglas:** se guardan nombre, email y teléfono con la reserva o pedido para permitir contacto manual del equipo. No hay envíos automáticos ni uso promocional en el MVP. Los registros se conservan indefinidamente.
+- **Aceptación:** los datos son visibles únicamente para usuarios internos autorizados al consultar la operación correspondiente.
+
+### CAP-0008 — Ciclo de vida de cuentas internas
+
+- **Actores:** administrador global, dueños y empleados.
+- **Reglas:** el administrador global crea y modifica cuentas de dueño y empleado; los dueños solo administran empleados. Una cuenta nueva recibe una contraseña temporal entregada manualmente y debe reemplazarla en el primer acceso. El restablecimiento de contraseña es manual y emite una nueva contraseña temporal. Desactivar una cuenta invalida su acceso inmediatamente.
+- **Aceptación:** un usuario desactivado no conserva acceso; una cuenta con contraseña temporal no puede operar el CMS antes de definir una contraseña nueva.
+- **Prioridad:** 1.
 
 ## Assumptions
 
@@ -140,7 +152,7 @@ No se establece una meta de ventas o conversión hasta disponer de una línea ba
 | ASM-0001 | El negocio puede aportar textos, precios, imágenes, alérgenos y datos comerciales reales antes de publicar. | Revisión de contenido por el dueño. |
 | ASM-0002 | La confirmación manual de reservas es suficiente para evitar sobreventa de mesas en el MVP. | Piloto operativo con el negocio. |
 | ASM-0003 | El pago simulado permite validar la experiencia de pedido sin operar transacciones reales. | Pruebas de extremo a extremo. |
-| ASM-0004 | Los usuarios internos comparten la visibilidad de pedidos y reservas dentro del mismo negocio. | Validación de privacidad y operación por el Product Owner. |
+| ASM-0004 | Los usuarios internos comparten la visibilidad de pedidos y reservas dentro del mismo negocio. | Confirmado por Product Owner. |
 
 ## Dependencies
 
@@ -167,8 +179,7 @@ No se establece una meta de ventas o conversión hasta disponer de una línea ba
 | --- | --- | --- | --- | --- |
 | OPD-0001 | Hosting, despliegue, dominios, operación y recuperación de producción. | Software Architect | Publicación y operación segura. | Alta |
 | OPD-0002 | Pasarela, pago real, cancelaciones y reembolsos. | Software Architect con Product Owner | Cobro real. | Alta |
-| OPD-0003 | Política de privacidad, retención y eliminación de datos de reservas y pedidos. | Product Owner | Cumplimiento y protección de datos. | Alta |
-| OPD-0004 | Capacidad operativa y reglas de disponibilidad de mesas más allá de la confirmación manual. | Product Owner | Experiencia de reserva. | Media |
+| OPD-0003 | Condiciones legales aplicables a la conservación indefinida de datos de reservas y pedidos. | Product Owner | Cumplimiento y protección de datos. | Alta |
 
 ## Release and MVP boundaries
 
@@ -185,6 +196,7 @@ El MVP incluye la migración visual y funcional de la web, CMS interno con permi
 5. Marketing y comunicaciones a clientes con el consentimiento correspondiente.
 6. Personalizaciones de producto que cambien el precio.
 7. Campos adicionales de carta y auditoría editorial avanzada.
+8. Prioridad configurable de campañas simultáneas.
 
 ## Product Owner review
 
@@ -203,3 +215,4 @@ El MVP incluye la migración visual y funcional de la web, CMS interno con permi
 | PR-0006 | CAP-0006 |
 | PR-0007 | CAP-0004 |
 | PR-0008 | CAP-0003 y CAP-0006 |
+| PR-0009 a PR-0012 | CAP-0002 y CAP-0005 a CAP-0008 |
