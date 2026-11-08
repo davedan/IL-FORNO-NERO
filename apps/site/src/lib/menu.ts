@@ -9,6 +9,8 @@ export const fallbackCategoryImages: Record<string, string> = {
   Bebidas: 'https://images.hostinger.com/b2a4aa15-82c8-42b2-ae66-6d9a90a61abf.png',
 }
 
+export const sortMenuGroups = <T extends { name: string; order?: number | null }>(groups: T[]) => [...groups].sort((left, right) => (left.order ?? 0) - (right.order ?? 0) || left.name.localeCompare(right.name, 'es'))
+
 const item = (slug: string, name: string, price: number, description: string, vegetarian = false, house = false): MenuItem => ({ slug, name, price, description, vegetarian, house, available: true })
 
 // Reference catalogue migrated from the approved Horizons baseline. Payload replaces it once the CMS is populated.
