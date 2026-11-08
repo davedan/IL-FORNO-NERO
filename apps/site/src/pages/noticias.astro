@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro'
+const stories = [
+  { tag: 'Mesa', date: '12 junio 2026', title: 'Una noche de horno y amigos', text: 'Una selección especial de pizzas, vinos italianos y una mesa larga para celebrar el barrio.' },
+  { tag: 'Temporada', date: '28 mayo 2026', title: 'La pizza que cambia con el mercado', text: 'Cada temporada trae una receta breve: producto fresco, masa madre y el punto exacto de nuestro horno.' },
+  { tag: 'Masa madre', date: '16 mayo 2026', title: '72 horas para llegar al plato', text: 'La fermentación lenta es parte de nuestro oficio. Te contamos por qué cambia el sabor, la textura y el aroma.' },
+]
+const images = ['https://images.hostinger.com/569fd2f0-8dad-46a2-915a-aa536605226b.png', 'https://images.hostinger.com/161cae1b-fb49-46dc-9743-508f76b01f69.png', 'https://images.hostinger.com/1c3e9407-d0ba-4059-a58c-4bb92661df5b.png']
+---
+<Base title="Noticias y eventos · Il Forno Nero"><header class="shell nav"><a class="brand" href="/">Il Forno Nero</a><nav class="navlinks"><a href="/#carta">Carta</a><a href="/#reservas">Reservas</a><a href="/delivery">Delivery</a></nav></header><main class="shell"><section><p class="eyebrow">Noticias</p><h1>Lo que ocurre alrededor del horno.</h1><p class="lead">Cenas, recetas de temporada y el oficio diario de Il Forno Nero.</p></section><section class="news-list">{stories.map((story, index) => <article class="news"><img src={images[index]} alt="" loading="lazy" /><div><p class="eyebrow">{story.tag} · {story.date}</p><h2>{story.title}</h2><p class="lead">{story.text}</p></div></article>)}</section></main><footer><div class="shell"><a href="/">Volver a Il Forno Nero</a></div></footer></Base>
