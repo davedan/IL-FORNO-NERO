@@ -25,6 +25,12 @@ test('uses the published menu price instead of a browser-provided price', async 
   assert.deepEqual(order.items, [{ productName: 'Margherita', unitPrice: 12, quantity: 2, customizations: [{ value: 'Sin albahaca' }] }])
 })
 
+test('accepts the slug assigned to a product in the CMS', async () => {
+  const payload = { find: async () => ({ docs: [{ name: 'Producto 1', price: 56, available: true, _status: 'published' }] }) } as unknown as Payload
+  const order = await orderFrom(payload, { name: 'Ada', email: 'ada@example.com', telephone: '600', checkoutKey: 'checkout-key-0002', pickupMinutes: '30', items: [{ productSlug: 'producto 1', quantity: 1 }] })
+  assert.equal(order.items[0].productName, 'Producto 1')
+})
+
 test('rejects an order without a checkout idempotency key', async () => {
   const payload = { find: async () => ({ docs: [{ name: 'Margherita', price: 12, available: true, _status: 'published' }] }) } as unknown as Payload
   await assert.rejects(() => orderFrom(payload, { name: 'Ada', email: 'ada@example.com', telephone: '600', pickupMinutes: '30', items: [{ productSlug: 'margherita', quantity: 1 }] }), PublicOperationError)

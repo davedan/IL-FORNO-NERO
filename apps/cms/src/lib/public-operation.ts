@@ -52,9 +52,10 @@ export const orderFrom = async (payload: Payload, input: Record<string, unknown>
   const requested = Array.isArray(input.items) ? input.items as RequestedItem[] : []
   if (!requested.length || requested.length > 30) throw new PublicOperationError('Añade al menos un producto al pedido.')
   const items = await Promise.all(requested.map(async (item) => {
-    const slug = String(item.productSlug ?? '')
+    const slug = String(item.productSlug ?? '').trim()
     const quantity = Number(item.quantity)
-    if (!/^[a-z0-9-]{2,80}$/.test(slug) || !Number.isInteger(quantity) || quantity < 1 || quantity > 20) throw new PublicOperationError('El pedido contiene una cantidad no válida.')
+    if (!slug || slug.length > 80) throw new PublicOperationError('El pedido contiene un producto no válido.')
+    if (!Number.isInteger(quantity) || quantity < 1 || quantity > 20) throw new PublicOperationError('El pedido contiene una cantidad no válida.')
     const result = await payload.find({ collection: 'products', where: { slug: { equals: slug } }, limit: 1, depth: 0, overrideAccess: true })
     const product = result.docs[0]
     if (!product) throw new PublicOperationError('Uno de los productos ya no está disponible.')
