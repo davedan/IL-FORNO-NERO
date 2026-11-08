@@ -162,10 +162,10 @@ Fuera de V2 permanecen todas las exclusiones anteriores y, adicionalmente, local
 
 ## Product Owner review
 
-- **Estado:** `APPROVED_BY_PRODUCT_OWNER_FOR_ANALYSIS`.
+- **Estado:** `APPROVED_BY_PRODUCT_OWNER_FOR_ARCHITECTURE`.
 - **Evidencia:** decisiones confirmadas por el Product Owner durante la sesión de definición de V2 el 8 de noviembre de 2026.
 - **Publicación:** autorizada por el Product Owner para este repositorio y rama de trabajo.
-- **Límite de aprobación:** esta aprobación habilita el análisis funcional y arquitectónico de V2; no es una aprobación canónica de BMSF ni habilita producción.
+- **Límite de aprobación:** esta aprobación, junto con los requisitos V2 aprobados, habilita la propuesta de Arquitectura V2; no es una aprobación canónica de BMSF ni habilita producción.
 
 ## Traceability
 

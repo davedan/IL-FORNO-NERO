@@ -4,7 +4,7 @@
 
 ## Result
 
-**Status: READY_FOR_PRODUCT_OWNER_APPROVAL.** The V2 package covers every V2 PDD capability with functional requirements, business rules, use cases, permission checks, negative paths and traceability. It is ready for the Product Owner to approve as the external V2 functional baseline.
+**Status: APPROVED_FOR_ARCHITECTURE_REVIEW.** The V2 package covers every V2 PDD capability with functional requirements, business rules, use cases, permission checks, negative paths and traceability. The Product Owner approved it on 8 November 2026 as the external V2 functional baseline for Architecture review.
 
 ## Coverage
 
@@ -24,6 +24,5 @@
 
 ## Recommended handoff
 
-1. Product Owner approves this exact V2 functional package.
-2. Architecture revises the V2 Architecture Contract against this approved package.
-3. Product Owner approves the project-specific V2 Architecture Contract before V2 development begins.
+1. Architecture produces a project-specific V2 Architecture Contract against this approved package.
+2. Product Owner approves that exact V2 Architecture Contract before V2 development begins.

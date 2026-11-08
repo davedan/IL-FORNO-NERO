@@ -97,5 +97,6 @@ GitHub Actions runs the same public build, CMS validation tests, Payload type ge
 - [V2 functional requirements](docs/requirements/v2/FUNCTIONAL-REQUIREMENTS.md)
 - [V2 decisions and readiness](docs/v2/DECISIONS.md) · [readiness report](docs/v2/READINESS-REPORT.md)
 - [V2 architecture impact analysis](docs/architecture/V2-ARCHITECTURE-IMPACT-ANALYSIS.md)
+- [V2 Architecture Contract proposal](docs/architecture/V2-ARCHITECTURE-CONTRACT.md)
 - [Architecture contract](docs/architecture/ARCHITECTURE-CONTRACT.md)
 - [Development handoff](docs/architecture/DEVELOPMENT-HANDOFF.md)

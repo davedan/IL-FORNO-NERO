@@ -1,6 +1,6 @@
 # Functional Requirements — Il Forno Nero V2
 
-> External Business Analysis package. Source: `docs/v2/PDD.md` at project commit `d366f01317b2c639d63e443c888c24e4c5d6db3f`. Status: `READY_FOR_PRODUCT_OWNER_APPROVAL`; it is not a canonical BMSF artifact.
+> External Business Analysis package. Source: `docs/v2/PDD.md` at project commit `d366f01317b2c639d63e443c888c24e4c5d6db3f`. Status: `VALIDATED_BY_EXTERNAL_BUSINESS_ANALYSIS_AND_APPROVED_BY_PRODUCT_OWNER_FOR_ARCHITECTURE` on 8 November 2026; it is not a canonical BMSF artifact.
 
 ## Baseline and scope change
 
