@@ -1,12 +1,12 @@
 # Functional Requirements — Il Forno Nero
 
-> External functional baseline, **APPROVED_BY_PRODUCT_OWNER** for Architecture review on 7 November 2026. Source: `PDD.md`; approval is external-project evidence and does not constitute canonical BMSF artifact adoption.
+> External functional baseline, **APPROVED_BY_PRODUCT_OWNER** for Development on 7 November 2026. Source: `PDD.md`; approval is external-project evidence and does not constitute canonical BMSF artifact adoption.
 
 ## Baseline
 
 - Project type: `public-website`.
 - Selected route: `website@1.0.0 → custom-web → astro-payload@0.1.0`.
-- Status: `APPROVED_FOR_ARCHITECTURE_REVIEW`; PDD and FR are the approved external-project baseline. Canonical BMSF adoption remains a separate process.
+- Status: `APPROVED_FOR_DEVELOPMENT`; PDD and FR are the approved external-project baseline. Canonical BMSF adoption remains a separate process.
 
 ## Requirements
 

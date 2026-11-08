@@ -1,6 +1,6 @@
 # Product Definition — Il Forno Nero
 
-> External product baseline, **APPROVED_BY_PRODUCT_OWNER** for Architecture review on 7 November 2026. It is published in this repository but has not been adopted as a canonical BMSF artifact.
+> External product baseline, **APPROVED_BY_PRODUCT_OWNER** for Development on 7 November 2026. It is published in this repository but has not been adopted as a canonical BMSF artifact.
 
 ## Problem
 

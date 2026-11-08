@@ -1,0 +1,43 @@
+name: Verify application
+
+on:
+  pull_request:
+  push:
+    branches: [main, bmsf/**]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            apps/site/package-lock.json
+            apps/cms/package-lock.json
+      - name: Install public site dependencies
+        working-directory: apps/site
+        run: npm ci --workspaces=false
+      - name: Build public site
+        working-directory: apps/site
+        run: npm run build
+      - name: Install CMS dependencies
+        working-directory: apps/cms
+        run: npm ci --workspaces=false --legacy-peer-deps
+      - name: Test CMS validation
+        working-directory: apps/cms
+        run: npm test
+      - name: Generate CMS types
+        working-directory: apps/cms
+        env:
+          PAYLOAD_SECRET: ci-only-not-a-production-secret
+        run: npm run generate:types
+      - name: Build CMS
+        working-directory: apps/cms
+        env:
+          PAYLOAD_SECRET: ci-only-not-a-production-secret
+          DATABASE_URL: file:./data/ci.db
+          PUBLIC_SITE_URL: http://localhost:4321
+        run: npm run build

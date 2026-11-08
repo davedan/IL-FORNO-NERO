@@ -1,8 +1,12 @@
 node_modules/
 dist/
+.next/
+.astro/
 .env
 .env.*
 !.env.example
 coverage/
+apps/cms/data/
+apps/cms/*.log
 .DS_Store
 

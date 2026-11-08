@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start --port 3001",
     "generate:importmap": "payload generate:importmap",
-    "generate:types": "payload generate:types"
+    "generate:types": "payload generate:types",
+    "seed": "tsx src/seed.ts",
+    "test": "tsx --test src/**/*.test.ts"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.90.0",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
+    "tsx": "4.22.4",
     "typescript": "^5.7.0"
   }
 }

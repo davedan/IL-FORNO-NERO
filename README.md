@@ -1,84 +1,95 @@
 # Il Forno Nero
 
-Web pública de Il Forno Nero, una pizzería napolitana en Madrid. El proyecto parte de una versión creada con Horizons y será la base de una evolución funcional gobernada por BMSF.
-
-## Estado del proyecto
-
-- **Tipo de proyecto:** Web Pública.
-- **Baseline:** versión inicial importada el 7 de noviembre de 2026.
-- **Objetivo inmediato:** conservar la funcionalidad actual y definir, antes de implementar, las capacidades adicionales y sus criterios de aceptación.
-- **Estado de requisitos:** descubrimiento en curso.
-
-La clasificación como Web Pública prioriza contenido, accesibilidad, SEO, rendimiento, responsive y localización. No implica autenticación, tenancy ni dependencias de BMBOS.
-
-## Funcionalidad actual
-
-- Página principal con historia de marca, carta, galería, promociones, reseñas, preguntas frecuentes y contacto.
-- Páginas independientes para `delivery`/recogida y noticias.
-- Contenido en español, inglés, italiano y alemán.
-- Carta con precios, opciones vegetarianas y aviso de masa sin gluten.
-- Formularios de reserva y contacto enviados a la API interna.
-- Entrega y recogida iniciadas por teléfono o WhatsApp.
-
-> Los datos comerciales, promociones, reseñas, posts y datos de contacto importados deben validarse con el negocio antes de publicar en producción.
-
-## Arquitectura actual
+Rebuild of the public website for Il Forno Nero on the approved BMSF delivery route:
 
 ```text
-apps/
-├── web/  React + Vite + Tailwind CSS
-└── api/  Express; reenvía formularios a un webhook
+public-website → website@1.0.0 → custom-web → astro-payload@0.1.0
 ```
 
-La web llama a `/hcgi/api/contact`. La API reenvía la solicitud a un webhook externo; aunque parte del copy menciona WhatsApp, el envío del formulario no abre WhatsApp directamente.
+The public experience is built with **Astro**. The internal CMS is **Payload 3** backed by **SQLite3**. There is no Docker, PostgreSQL, payment provider, external notification service or deployment configuration in this repository.
 
-## Desarrollo local
+## Scope and status
 
-Requiere una versión reciente de Node.js y Bun.
+- `PDD.md` and `docs/requirements/FUNCTIONAL-REQUIREMENTS.md` are approved by the Product Owner for Development.
+- The original Horizons implementation remains under `apps/web` and `apps/api` as a migration reference; it is not the runtime application.
+- The active application is `apps/site` (Astro) and `apps/cms` (Payload + SQLite3).
+- Public visitors can browse the menu, prepare a click-and-collect order, request a reservation and see active flash campaigns.
+- Internal users manage the menu, campaigns, reservations and orders through Payload. Employees create editorial drafts; owners or global administrators publish them.
 
-```bash
-bun install
-bun run dev
+## Requirements
+
+- Node.js 20.9 or later (Node 24 is used in CI).
+- npm.
+
+No Bun or Docker is required for the active application.
+
+## Local setup
+
+Install each application independently:
+
+```powershell
+cd apps/site
+npm ci --workspaces=false
+cd ../cms
+npm ci --workspaces=false --legacy-peer-deps
+Copy-Item .env.example .env
 ```
 
-La web se sirve en el puerto `3000` y la API en el `3001` por defecto.
+Set a long, unique `PAYLOAD_SECRET` and the initial administrator credentials in `apps/cms/.env`. Then initialise SQLite and the baseline menu:
 
-Para compilar la web:
-
-```bash
-bun run build
+```powershell
+cd apps/cms
+$env:PAYLOAD_SECRET = 'replace-with-a-long-random-secret'
+$env:INITIAL_ADMIN_EMAIL = 'owner@example.com'
+$env:INITIAL_ADMIN_PASSWORD = 'a-long-temporary-password'
+npm run seed
 ```
 
-Para ejecutar los linters:
+The seed is idempotent: it only creates the initial administrator if none exists and only inserts the baseline products if absent. Change the temporary password at the first login.
 
-```bash
-bun run lint
+Run the two applications in separate terminals:
+
+```powershell
+# Terminal 1
+cd apps/cms
+$env:PAYLOAD_SECRET = 'replace-with-a-long-random-secret'
+npm run dev
+
+# Terminal 2
+cd apps/site
+npm run dev
 ```
 
-## Configuración de la API
+- Public site: `http://localhost:4321`
+- CMS: `http://localhost:3001/admin`
+- SQLite file: `apps/cms/data/il-forno-nero.db` (ignored by Git)
 
-Crear `apps/api/.env` con las credenciales del webhook:
+## Verification
 
-```dotenv
-WEBHOOK_URL=
-N8N_BASIC_AUTH_USER=
-N8N_CONTACT_WEBHOOK_SECRET=
-BM_TENANT_ID=
-BM_BUSINESS_ID=
-CORS_ORIGIN=
+```powershell
+cd apps/site
+npm run build
+
+cd ../cms
+npm test
+$env:PAYLOAD_SECRET = 'replace-with-a-long-random-secret'
+npm run generate:types
+npm run build
 ```
 
-No subir secretos ni ficheros `.env` al repositorio.
+GitHub Actions runs the same public build, CMS validation tests, Payload type generation and CMS build on pushes and pull requests.
 
-## Próximas decisiones de producto
+## Product constraints retained in this MVP
 
-1. Validar los datos y contenidos reales del negocio.
-2. Acordar las nuevas funcionalidades, su valor esperado y el alcance de la primera entrega.
-3. Resolver el flujo definitivo de reservas: webhook, WhatsApp o una combinación verificable.
-4. Seleccionar un Target Profile BMSF versionado cuando exista una definición canónica verificable para Web Pública.
+- Orders are marked **paid (simulation)**: no real charge occurs.
+- Reservations and orders are guest flows; customer accounts are deferred.
+- Visitors cannot alter or cancel a submitted reservation or order. The internal team can do so after a call.
+- Contact details are stored for operations only; automatic email, WhatsApp, calls and marketing are deferred.
+- Legal validation of indefinite retention and release security disposition remain required before production release.
 
-## Gobernanza BMSF
+## Documentation
 
-Este repositorio será la fuente de verdad de los artefactos del proyecto. Las decisiones de producto y los cambios de alcance se documentarán de forma trazable antes de pasar a requisitos funcionales, arquitectura, implementación y QA.
-
-La selección confirmada es **Web Pública**. El Target Profile técnico queda abierto: no se asumirá stack, CMS, alojamiento ni proceso de despliegue hasta que se valide.
+- [Product definition](PDD.md)
+- [Functional requirements](docs/requirements/FUNCTIONAL-REQUIREMENTS.md)
+- [Architecture contract](docs/architecture/ARCHITECTURE-CONTRACT.md)
+- [Development handoff](docs/architecture/DEVELOPMENT-HANDOFF.md)
