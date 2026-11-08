@@ -28,12 +28,12 @@ Los visitantes siguen actuando como invitados, sin perfil ni historial de client
 
 ## Product principles and constraints
 
-- **V2-PR-0001 — Evolución, no sustitución.** V2 preserva las capacidades operativas y la identidad visual aprobadas en V1; solo modifica los puntos indicados expresamente.
-- **V2-PR-0002 — Un pedido, una fuente visible.** Carta, Click & Collect y carrito comparten el mismo pedido durante una visita.
-- **V2-PR-0003 — Sesión efímera.** El carrito se pierde al recargar o cerrar el navegador. No se crean cuentas ni se almacena un carrito para recuperarlo.
-- **V2-PR-0004 — Gestión directa del dueño.** El dueño publica inmediatamente sus cambios en galería, reseñas y FAQ. El empleado no gestiona esas áreas.
-- **V2-PR-0005 — Español en V2.** La web pública y los nuevos contenidos de V2 se entregan únicamente en español. Inglés, italiano, alemán y el selector de idioma se difieren.
-- **V2-PR-0006 — Pago inequívocamente simulado.** El flujo no debe sugerir que se ha realizado un cargo real.
+- **V2-PP-0001 — Evolución, no sustitución.** V2 preserva las capacidades operativas y la identidad visual aprobadas en V1; solo modifica los puntos indicados expresamente.
+- **V2-PP-0002 — Un pedido, una fuente visible.** Carta, Click & Collect y carrito comparten el mismo pedido durante una visita.
+- **V2-PP-0003 — Sesión efímera.** El carrito se pierde al recargar o cerrar el navegador. No se crean cuentas ni se almacena un carrito para recuperarlo.
+- **V2-PP-0004 — Gestión directa del dueño.** El dueño publica inmediatamente sus cambios en galería, reseñas y FAQ. El empleado no gestiona esas áreas.
+- **V2-PP-0005 — Español en V2.** La web pública y los nuevos contenidos de V2 se entregan únicamente en español. Inglés, italiano, alemán y el selector de idioma se difieren.
+- **V2-PP-0006 — Pago inequívocamente simulado.** El flujo no debe sugerir que se ha realizado un cargo real.
 
 ### Tipo y perfil BMSF
 
