@@ -174,6 +174,10 @@ export interface User {
 export interface Category {
   id: number;
   name: string;
+  /**
+   * URL pública de la imagen que se muestra a la izquierda de este grupo.
+   */
+  imageUrl?: string | null;
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -193,7 +197,7 @@ export interface Product {
   description?: string | null;
   price: number;
   /**
-   * URL pública de la imagen del plato.
+   * URL pública de la imagen que se muestra a la derecha de este producto.
    */
   imageUrl?: string | null;
   category: number | Category;
@@ -471,6 +475,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
+  imageUrl?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

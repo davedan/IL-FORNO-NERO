@@ -8,7 +8,7 @@ export const Categories: CollectionConfig = {
   access: { read: publicReadPublished, create: isInternal, update: isInternal, delete: isOwnerOrAdmin },
   versions: { drafts: true },
   hooks: { beforeChange: [requireOwnerApproval] },
-  fields: [{ name: 'name', type: 'text', required: true, localized: true }, { name: 'order', type: 'number', defaultValue: 0 }],
+  fields: [{ name: 'name', type: 'text', required: true, localized: true }, { name: 'imageUrl', label: 'Imagen de categoría', type: 'text', admin: { description: 'URL pública de la imagen que se muestra a la izquierda de este grupo.' } }, { name: 'order', type: 'number', defaultValue: 0 }],
 }
 
 export const Products: CollectionConfig = {
@@ -22,7 +22,7 @@ export const Products: CollectionConfig = {
     { name: 'slug', type: 'text', required: true, unique: true, admin: { description: 'Identificador estable usado por la web pública.' } },
     { name: 'description', type: 'textarea', localized: true },
     { name: 'price', type: 'number', required: true, min: 0 },
-    { name: 'imageUrl', type: 'text', admin: { description: 'URL pública de la imagen del plato.' } },
+    { name: 'imageUrl', label: 'Imagen del plato', type: 'text', admin: { description: 'URL pública de la imagen que se muestra a la derecha de este producto.' } },
     { name: 'category', type: 'relationship', relationTo: 'categories', required: true },
     { name: 'ingredients', type: 'array', fields: [{ name: 'value', type: 'text', required: true }] },
     { name: 'allergens', type: 'array', fields: [{ name: 'value', type: 'text', required: true }] },

@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import config from './payload.config'
-import { fallbackMenu } from '../../site/src/lib/menu'
+import { fallbackCategoryImages, fallbackMenu } from '../../site/src/lib/menu'
 
 const email = process.env.INITIAL_ADMIN_EMAIL
 const password = process.env.INITIAL_ADMIN_PASSWORD
@@ -17,7 +17,8 @@ if (!users.docs.length) {
 
 for (const [index, entry] of fallbackMenu.entries()) {
   const found = await payload.find({ collection: 'categories', where: { name: { equals: entry.name } }, limit: 1, overrideAccess: true })
-  const category = found.docs[0] ?? await payload.create({ collection: 'categories', overrideAccess: true, data: { name: entry.name, order: index, _status: 'published' } })
+  const fallbackImage = fallbackCategoryImages[entry.name]
+  const category = found.docs[0] ? (found.docs[0].imageUrl ? found.docs[0] : await payload.update({ collection: 'categories', id: found.docs[0].id, overrideAccess: true, data: { imageUrl: fallbackImage } })) : await payload.create({ collection: 'categories', overrideAccess: true, data: { name: entry.name, imageUrl: fallbackImage, order: index, _status: 'published' } })
   for (const product of entry.items) {
     const exists = await payload.find({ collection: 'products', where: { slug: { equals: product.slug } }, limit: 1, overrideAccess: true })
     const data = { slug: product.slug, name: product.name, description: product.description, price: product.price, category: category.id, available: product.available, dietaryLabels: product.vegetarian ? ['vegetarian' as const] : [], _status: 'published' as const }

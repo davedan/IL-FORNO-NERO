@@ -1,6 +1,14 @@
 export type MenuItem = { slug: string; name: string; description: string; price: number; available: boolean; vegetarian?: boolean; house?: boolean }
 export type MenuCategory = { name: string; note?: string; items: MenuItem[] }
 
+export const fallbackCategoryImages: Record<string, string> = {
+  Entrantes: 'https://images.hostinger.com/1c3e9407-d0ba-4059-a58c-4bb92661df5b.png',
+  'Pizzas Clásicas': 'https://images.hostinger.com/161cae1b-fb49-46dc-9743-508f76b01f69.png',
+  'Pizzas Especiales': 'https://images.hostinger.com/7531b623-2fe3-42e0-a495-1d596c21232b.png',
+  Postres: 'https://images.hostinger.com/5267ed01-5467-474b-b569-159afc6742c6.png',
+  Bebidas: 'https://images.hostinger.com/b2a4aa15-82c8-42b2-ae66-6d9a90a61abf.png',
+}
+
 const item = (slug: string, name: string, price: number, description: string, vegetarian = false, house = false): MenuItem => ({ slug, name, price, description, vegetarian, house, available: true })
 
 // Reference catalogue migrated from the approved Horizons baseline. Payload replaces it once the CMS is populated.
