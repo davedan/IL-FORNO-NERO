@@ -2,13 +2,13 @@
 const onHome = Astro.url.pathname === '/'
 const section = (id: string) => onHome ? `#${id}` : `/#${id}`
 ---
-<header class="shell nav">
+<div class="nav-wrap"><header class="shell nav">
   <a class="brand" href="/">Il Forno Nero</a>
   <nav class="navlinks">
     <a href="/carta">Carta</a><a href={section('nosotros')}>Nosotros</a><a href={section('galeria')}>Galería</a><a href={section('promos')}>Promos</a><a href={section('resenas')}>Reseñas</a><a href={section('faq')}>FAQ</a><a href={section('contacto')}>Contacto</a><a href="/delivery">Delivery</a><a href="/noticias">Noticias</a><a href="/carrito">Carrito <span data-cart-count>0</span></a>
   </nav>
   <a class="nav-book" href={section('reservas')}>Reservar</a>
-</header>
+</header></div>
 <script>
   import { cartItems } from '../scripts/cart'
   document.addEventListener('astro:page-load', () => document.querySelectorAll('[data-cart-count]').forEach((node) => node.textContent = String(cartItems().reduce((sum, item) => sum + item.quantity, 0))))
