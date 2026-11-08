@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro'
+import SiteHeader from '../components/SiteHeader.astro'
 import { fallbackMenu } from '../lib/menu'
 
 const categoryImages: Record<string, string> = {
@@ -11,7 +12,7 @@ const categoryImages: Record<string, string> = {
 }
 ---
 <Base title="Carta · Il Forno Nero">
-  <header class="shell nav"><a class="brand" href="/">Il Forno Nero</a><nav class="navlinks"><a href="/">Inicio</a><a href="/carta">Carta</a><a href="/carrito">Carrito <span data-cart-count>0</span></a><a href="/#reservas">Reservas</a></nav></header>
+  <SiteHeader />
   <main class="menu"><section><div class="shell"><p class="eyebrow">La carta</p><h1>Producto italiano, fuego vivo.</h1><p class="lead">Elige tus platos y personalízalos con una observación para el equipo. Los precios y la disponibilidad se confirman al pedir.</p><p class="cart-link"><a class="button alt" href="/carrito">Ver carrito · <span data-cart-count>0</span> artículos · <span data-cart-total>0,00 €</span></a></p><div class="menu-groups" data-menu-catalog>{fallbackMenu.map((category) => <section class="menu-group"><img src={categoryImages[category.name]} alt="" loading="lazy" /><div class="menu-group-content"><h2>{category.name}</h2>{category.note && <p class="menu-group-note">{category.note}</p>}{category.items.map((item) => <article class="item"><img class="item-art" src={categoryImages[category.name]} alt="" loading="lazy" /><div class="itemhead"><span>{item.name}{item.vegetarian && ' · V'}</span><span>{item.price.toFixed(2)} €</span></div><p>{item.description}</p>{item.available ? <><label class="customize">Personaliza<input data-customizations={item.slug} maxlength="180" placeholder="Sin cebolla, punto de horneado…" /></label><button class="button add-item" type="button" data-slug={item.slug} data-name={item.name} data-price={item.price}>Añadir al pedido</button></> : <span class="note">No disponible</span>}</article>)}</div></section>)}</div></div></section></main>
   <footer><div class="shell"><a href="/">Volver a Il Forno Nero</a></div></footer>
   <script>
