@@ -13,6 +13,8 @@ import { RestaurantSettings } from './globals/RestaurantSettings'
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const secret = process.env.PAYLOAD_SECRET
 const databaseUrl = process.env.DATABASE_URL || 'file:./data/il-forno-nero.db'
+const siteUrl = process.env.PUBLIC_SITE_URL || 'http://localhost:4321'
+const cmsUrl = process.env.CMS_URL || 'http://localhost:3001'
 
 if (databaseUrl === 'file:./data/il-forno-nero.db') mkdirSync(path.resolve(process.cwd(), 'data'), { recursive: true })
 
@@ -24,9 +26,10 @@ export default buildConfig({
   globals: [RestaurantSettings],
   editor: lexicalEditor(),
   secret,
+  serverURL: cmsUrl,
   db: sqliteAdapter({ client: { url: databaseUrl }, transactionOptions: {}, wal: true }),
   localization: { locales: [{ code: 'es', label: 'Español' }, { code: 'en', label: 'English' }, { code: 'it', label: 'Italiano' }, { code: 'de', label: 'Deutsch' }], defaultLocale: 'es', fallback: true },
-  cors: [process.env.PUBLIC_SITE_URL || 'http://localhost:4321'],
-  csrf: [process.env.PUBLIC_SITE_URL || 'http://localhost:4321'],
+  cors: [siteUrl, cmsUrl],
+  csrf: [siteUrl, cmsUrl],
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
 })

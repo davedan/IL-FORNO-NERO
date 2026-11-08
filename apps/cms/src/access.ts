@@ -4,7 +4,7 @@ type InternalRole = 'global_admin' | 'owner' | 'employee'
 type InternalUser = { id?: number | string; role?: InternalRole; active?: boolean } | null | undefined
 
 const roleOf = (user: InternalUser) => user?.role
-const isActive = (user: InternalUser) => user?.active !== false
+const isActive = (user: InternalUser) => Boolean(user) && user?.active !== false
 export const isInternal: Access = ({ req }) => Boolean(roleOf(req.user as InternalUser)) && isActive(req.user as InternalUser)
 export const isOwnerOrAdmin: Access = ({ req }) => isActive(req.user as InternalUser) && ['global_admin', 'owner'].includes(roleOf(req.user as InternalUser) ?? '')
 export const isAdmin: Access = ({ req }) => isActive(req.user as InternalUser) && roleOf(req.user as InternalUser) === 'global_admin'
@@ -12,9 +12,9 @@ export const publicReadPublished: Access = ({ req }) => Boolean(roleOf(req.user 
 
 export const manageUsers: Access = ({ req }) => {
   const user = req.user as InternalUser
-  if (!isActive(user)) return false
+  if (!isActive(user) || !user?.id) return false
   if (user?.role === 'global_admin') return true
-  if (user?.role === 'owner') return { and: [{ role: { equals: 'employee' } }, { manager: { equals: user.id } }] } as Where
+  if (user?.role === 'owner') return { or: [{ id: { equals: user.id } }, { and: [{ role: { equals: 'employee' } }, { manager: { equals: user.id } }] }] } as Where
   return { id: { equals: user?.id } } as Where
 }
 
