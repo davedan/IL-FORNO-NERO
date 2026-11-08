@@ -1,9 +1,10 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { createUsers, deleteUsers, manageUsers } from '../access'
 
-const enforceUserManagement: CollectionBeforeChangeHook = ({ data, operation, originalDoc, req }) => {
+export const enforceUserManagement: CollectionBeforeChangeHook = ({ data, operation, originalDoc, req }) => {
   const user = req.user
   if (!user || user.role === 'global_admin') return data
+  if (operation === 'update' && originalDoc?.id === user.id && Object.keys(data).every((key) => ['password', 'mustChangePassword'].includes(key))) return data
   if (user.role === 'owner') {
     if ((operation === 'create' && data.role !== 'employee') || (operation === 'update' && originalDoc?.role !== 'employee')) throw new Error('Owners can only manage employee accounts.')
     data.role = 'employee'
