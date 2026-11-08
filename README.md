@@ -11,7 +11,7 @@ The public experience is built with **Astro**. The internal CMS is **Payload 3**
 ## Scope and status
 
 - `PDD.md` and `docs/requirements/FUNCTIONAL-REQUIREMENTS.md` are the approved Product Owner baseline for V1.
-- `docs/v2/` contains the Product Owner-approved V2 evolution package, ready for functional and architectural review; it does not replace the V1 baseline or claim canonical BMSF adoption.
+- `docs/v2/`, `docs/requirements/v2/` and `docs/architecture/V2-ARCHITECTURE-CONTRACT.md` contain the Product Owner-approved V2 product, requirements and architecture baseline for Development; they do not replace V1 history or claim canonical BMSF adoption.
 - The original Horizons implementation remains under `apps/web` and `apps/api` as a migration reference; it is not the runtime application.
 - The active application is `apps/site` (Astro) and `apps/cms` (Payload + SQLite3).
 - Public visitors can browse the menu, prepare a click-and-collect order, request a reservation and see active flash campaigns.

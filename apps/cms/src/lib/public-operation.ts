@@ -28,7 +28,7 @@ export const reservationFrom = (input: Record<string, unknown>) => {
   const notes = String(input.notes ?? '').trim()
   if (notes.length > 1000) throw new PublicOperationError('Las observaciones son demasiado largas.')
   // Store a date-only reservation at noon UTC so it cannot move to the prior local day.
-  return { ...contact, date: `${date}T12:00:00.000Z`, time, people, notes, status: 'solicitada' }
+  return { ...contact, date: `${date}T12:00:00.000Z`, time, people, notes, status: 'solicitada' as const }
 }
 
 export const assertReservationAvailability = async (payload: Payload, date: string, time: string) => {
@@ -44,8 +44,11 @@ type RequestedItem = { productSlug?: unknown; quantity?: unknown; customizations
 
 export const orderFrom = async (payload: Payload, input: Record<string, unknown>) => {
   const contact = contactFrom(input)
-  const pickupMinutes = String(input.pickupMinutes ?? '')
-  if (pickupMinutes !== '30' && pickupMinutes !== '45') throw new PublicOperationError('Selecciona recogida en 30 o 45 minutos.')
+  const checkoutKey = String(input.checkoutKey ?? '')
+  if (!/^[a-zA-Z0-9_-]{16,120}$/.test(checkoutKey)) throw new PublicOperationError('No se ha podido validar el pedido. Inténtalo de nuevo.')
+  const requestedPickup = String(input.pickupMinutes ?? '')
+  if (requestedPickup !== '30' && requestedPickup !== '45') throw new PublicOperationError('Selecciona recogida en 30 o 45 minutos.')
+  const pickupMinutes = requestedPickup as '30' | '45'
   const requested = Array.isArray(input.items) ? input.items as RequestedItem[] : []
   if (!requested.length || requested.length > 30) throw new PublicOperationError('Añade al menos un producto al pedido.')
   const items = await Promise.all(requested.map(async (item) => {
@@ -59,5 +62,5 @@ export const orderFrom = async (payload: Payload, input: Record<string, unknown>
     const customizations = Array.isArray(item.customizations) ? item.customizations.map((value) => ({ value: String(value).trim() })).filter(({ value }) => value) : []
     return { productName: String(product.name), unitPrice: Number(product.price), quantity, customizations }
   }))
-  return { ...contact, pickupMinutes, paymentMode: 'simulated', status: 'pagado', items }
+  return { ...contact, checkoutKey, pickupMinutes, paymentMode: 'simulated' as const, status: 'pagado' as const, items }
 }

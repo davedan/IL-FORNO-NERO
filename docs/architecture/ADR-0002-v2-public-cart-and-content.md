@@ -1,6 +1,6 @@
 # ADR-0002 — V2 public cart and owner-managed content
 
-> External project ADR proposal. Status: `PROPOSED_PENDING_OWNER_ARCHITECTURE_APPROVAL` on 8 November 2026.
+> External project ADR. Status: `ACCEPTED_FOR_PROJECT_ARCHITECTURE` by Product Owner approval on 8 November 2026.
 
 ## Context
 
@@ -16,4 +16,4 @@ Extend the existing Astro public frontend and Payload CMS/API rather than introd
 - A browser refresh deliberately loses the cart.
 - Checkout idempotency becomes an explicit server-side verification obligation.
 - Public content is managed manually; Google remains deferred.
-- This ADR has no effect until the Owner approves `V2-ARCHITECTURE-CONTRACT.md`.
+- This ADR is effective only within the approved `V2-ARCHITECTURE-CONTRACT.md` boundaries.

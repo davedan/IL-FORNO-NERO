@@ -8,5 +8,6 @@ dist/
 coverage/
 apps/cms/data/
 apps/cms/*.log
+apps/cms/src/app/(payload)/admin/importMap.js
 .DS_Store
 

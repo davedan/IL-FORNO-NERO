@@ -18,10 +18,16 @@ test('uses the published menu price instead of a browser-provided price', async 
   const payload = {
     find: async () => ({ docs: [{ name: 'Margherita', price: 12, available: true, _status: 'published' }] }),
   } as unknown as Payload
-  const order = await orderFrom(payload, { name: 'Ada', email: 'ada@example.com', telephone: '600', pickupMinutes: '30', items: [{ productSlug: 'margherita', quantity: 2, unitPrice: 0, customizations: ['Sin albahaca'] }] })
+  const order = await orderFrom(payload, { name: 'Ada', email: 'ada@example.com', telephone: '600', checkoutKey: 'checkout-key-0001', pickupMinutes: '30', items: [{ productSlug: 'margherita', quantity: 2, unitPrice: 0, customizations: ['Sin albahaca'] }] })
   assert.equal(order.status, 'pagado')
   assert.equal(order.paymentMode, 'simulated')
+  assert.equal(order.checkoutKey, 'checkout-key-0001')
   assert.deepEqual(order.items, [{ productName: 'Margherita', unitPrice: 12, quantity: 2, customizations: [{ value: 'Sin albahaca' }] }])
+})
+
+test('rejects an order without a checkout idempotency key', async () => {
+  const payload = { find: async () => ({ docs: [{ name: 'Margherita', price: 12, available: true, _status: 'published' }] }) } as unknown as Payload
+  await assert.rejects(() => orderFrom(payload, { name: 'Ada', email: 'ada@example.com', telephone: '600', pickupMinutes: '30', items: [{ productSlug: 'margherita', quantity: 1 }] }), PublicOperationError)
 })
 
 test('rejects closed dates and times outside owner-configured slots', async () => {

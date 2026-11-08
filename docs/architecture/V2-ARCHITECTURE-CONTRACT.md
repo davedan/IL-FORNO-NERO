@@ -1,11 +1,11 @@
 # V2 Architecture Contract — Il Forno Nero
 
-> External project Architecture Contract proposal, prepared 8 November 2026. Status: `READY_FOR_OWNER_ARCHITECTURE_APPROVAL`. It is GitHub-published project evidence, not a canonical BMSF artifact. It does not authorize V2 Development until the Product Owner approves this exact version.
+> External project Architecture Contract, approved by the Product Owner on 8 November 2026. Status: `APPROVED_BY_PRODUCT_OWNER_FOR_DEVELOPMENT`. It is GitHub-published project evidence, not a canonical BMSF artifact.
 
 ## Status and pinned baseline
 
-- **Architecture proposal:** `PASS` against the approved V2 PDD and Functional Requirements.
-- **Development handoff:** `BLOCKED_OWNER_ARCHITECTURE_APPROVAL_PENDING`.
+- **Architecture revalidation:** `PASS` against the approved V2 PDD and Functional Requirements.
+- **Development handoff:** `READY` for the standard BMSF GitHub delivery process.
 - **Project source:** `davedan/IL-FORNO-NERO`, branch `bmsf/wu-0001-astro-payload-foundation`, baseline commit `7d6845958ff94bd1a2c7b4c14c2c3773fe72944a`.
 - **Product input:** `docs/v2/PDD.md`, blob `3a98e14f4c3d8a364a93c2f5b751e84fe79ca697`, approved by the Product Owner for Architecture.
 - **Functional input:** `docs/requirements/v2/FUNCTIONAL-REQUIREMENTS.md`, blob `0e503813bc4be6685daef174c68bb442d5c2d0f4`, validated externally and approved by the Product Owner for Architecture.
@@ -106,6 +106,6 @@ The V1 legal/privacy release gate and secret-management requirements remain unch
 | V2-DEP-ARCH-004 | Release gate | QA/Owner security disposition of project dependencies; strict audit is not represented as clean. |
 | V2-DEP-ARCH-005 | Development evidence | CI/QA must demonstrate checkout idempotency and V2 authorization/accessibility behavior. |
 
-## Owner approval request
+## Owner approval evidence
 
-The Owner is asked to approve this project-specific stack and boundaries exactly as stated: Astro public frontend; Payload CMS/API and internal authentication; SQLite3 persistence; GitHub Actions/QA delivery; no Docker, PostgreSQL, real payment, customer profiles, Google integration or production provider. Approval must be tied to this file and commit before V2 Development begins.
+The Product Owner explicitly approved this project-specific stack and boundaries on 8 November 2026: Astro public frontend; Payload CMS/API and internal authentication; SQLite3 persistence; GitHub Actions/QA delivery; no Docker, PostgreSQL, real payment, customer profiles, Google integration or production provider. This approval enables V2 Development on the stated boundaries; production remains subject to the listed release gates.

@@ -1,6 +1,6 @@
 # V2 Development Handoff — Il Forno Nero
 
-> External Architect → Development handoff draft. Status: `BLOCKED_OWNER_ARCHITECTURE_APPROVAL_PENDING` on 8 November 2026.
+> External Architect → Development handoff. Status: `READY` for the standard BMSF GitHub delivery process on 8 November 2026.
 
 ## Inputs
 
@@ -9,9 +9,9 @@
 - Architecture proposal: `docs/architecture/V2-ARCHITECTURE-CONTRACT.md`.
 - Target: `public-website → website@1.0.0 → custom-web → astro-payload@0.1.0` using Astro, Payload and SQLite3.
 
-## Blocking condition
+## Handoff result
 
-Under DR-0002, V2 Development cannot start until the Product Owner explicitly approves the exact V2 Architecture Contract and its complete stack. The certified target and unavailable local adapter are not blockers; the missing project-specific Owner architecture approval is.
+The Product Owner approved the exact V2 Architecture Contract and its complete stack on 8 November 2026. Development proceeds through Codex/GitHub and GitHub Actions. The certified target and unavailable local adapter are not blockers; Docker and unapproved infrastructure remain prohibited.
 
 ## Required evidence after approval
 

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import { Users } from './collections/Users'
 import { Categories, Products } from './collections/Menu'
 import { Campaigns, Orders, Reservations } from './collections/Operations'
+import { Faqs, GalleryItems, Reviews } from './collections/Content'
 import { RestaurantSettings } from './globals/RestaurantSettings'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -19,7 +20,7 @@ if (!secret) throw new Error('PAYLOAD_SECRET is required. Copy .env.example to .
 
 export default buildConfig({
   admin: { user: Users.slug, importMap: { baseDir: path.resolve(dirname) } },
-  collections: [Users, Categories, Products, Campaigns, Reservations, Orders],
+  collections: [Users, Categories, Products, Campaigns, Reservations, Orders, GalleryItems, Reviews, Faqs],
   globals: [RestaurantSettings],
   editor: lexicalEditor(),
   secret,

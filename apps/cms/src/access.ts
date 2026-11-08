@@ -1,4 +1,4 @@
-import type { Access, CollectionConfig } from 'payload'
+import type { Access, CollectionConfig, Where } from 'payload'
 
 type InternalRole = 'global_admin' | 'owner' | 'employee'
 type InternalUser = { id?: number | string; role?: InternalRole; active?: boolean } | null | undefined
@@ -14,8 +14,8 @@ export const manageUsers: Access = ({ req }) => {
   const user = req.user as InternalUser
   if (!isActive(user)) return false
   if (user?.role === 'global_admin') return true
-  if (user?.role === 'owner') return { and: [{ role: { equals: 'employee' } }, { manager: { equals: user.id } }] }
-  return { id: { equals: user?.id } }
+  if (user?.role === 'owner') return { and: [{ role: { equals: 'employee' } }, { manager: { equals: user.id } }] } as Where
+  return { id: { equals: user?.id } } as Where
 }
 
 export const createUsers: Access = ({ req }) => ['global_admin', 'owner'].includes(roleOf(req.user as InternalUser) ?? '') && isActive(req.user as InternalUser)
@@ -23,7 +23,7 @@ export const deleteUsers: Access = ({ req }) => {
   const user = req.user as InternalUser
   if (!isActive(user)) return false
   if (user?.role === 'global_admin') return true
-  return user?.role === 'owner' ? { and: [{ role: { equals: 'employee' } }, { manager: { equals: user.id } }] } : false
+  return user?.role === 'owner' ? { and: [{ role: { equals: 'employee' } }, { manager: { equals: user.id } }] } as Where : false
 }
 
 export const internalAccess: Pick<CollectionConfig, 'access'>['access'] = {

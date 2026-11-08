@@ -20,7 +20,7 @@ for (const [index, entry] of fallbackMenu.entries()) {
   const category = found.docs[0] ?? await payload.create({ collection: 'categories', overrideAccess: true, data: { name: entry.name, order: index, _status: 'published' } })
   for (const product of entry.items) {
     const exists = await payload.find({ collection: 'products', where: { slug: { equals: product.slug } }, limit: 1, overrideAccess: true })
-    const data = { slug: product.slug, name: product.name, description: product.description, price: product.price, category: category.id, available: product.available, dietaryLabels: product.vegetarian ? ['vegetarian'] : [], _status: 'published' as const }
+    const data = { slug: product.slug, name: product.name, description: product.description, price: product.price, category: category.id, available: product.available, dietaryLabels: product.vegetarian ? ['vegetarian' as const] : [], _status: 'published' as const }
     if (exists.docs[0]) await payload.update({ collection: 'products', id: exists.docs[0].id, overrideAccess: true, data })
     else await payload.create({ collection: 'products', overrideAccess: true, data })
   }
