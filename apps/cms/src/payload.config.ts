@@ -1,5 +1,6 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { mkdirSync } from 'fs'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -10,6 +11,9 @@ import { RestaurantSettings } from './globals/RestaurantSettings'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const secret = process.env.PAYLOAD_SECRET
+const databaseUrl = process.env.DATABASE_URL || 'file:./data/il-forno-nero.db'
+
+if (databaseUrl === 'file:./data/il-forno-nero.db') mkdirSync(path.resolve(process.cwd(), 'data'), { recursive: true })
 
 if (!secret) throw new Error('PAYLOAD_SECRET is required. Copy .env.example to .env and set a long random value.')
 
@@ -19,7 +23,7 @@ export default buildConfig({
   globals: [RestaurantSettings],
   editor: lexicalEditor(),
   secret,
-  db: sqliteAdapter({ client: { url: process.env.DATABASE_URL || 'file:./data/il-forno-nero.db' }, transactionOptions: {}, wal: true }),
+  db: sqliteAdapter({ client: { url: databaseUrl }, transactionOptions: {}, wal: true }),
   localization: { locales: [{ code: 'es', label: 'Español' }, { code: 'en', label: 'English' }, { code: 'it', label: 'Italiano' }, { code: 'de', label: 'Deutsch' }], defaultLocale: 'es', fallback: true },
   cors: [process.env.PUBLIC_SITE_URL || 'http://localhost:4321'],
   csrf: [process.env.PUBLIC_SITE_URL || 'http://localhost:4321'],
