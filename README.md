@@ -10,7 +10,8 @@ The public experience is built with **Astro**. The internal CMS is **Payload 3**
 
 ## Scope and status
 
-- `PDD.md` and `docs/requirements/FUNCTIONAL-REQUIREMENTS.md` are approved by the Product Owner for Development.
+- `PDD.md` and `docs/requirements/FUNCTIONAL-REQUIREMENTS.md` are the approved Product Owner baseline for V1.
+- `docs/v2/` contains the Product Owner-approved V2 evolution package, ready for functional and architectural review; it does not replace the V1 baseline or claim canonical BMSF adoption.
 - The original Horizons implementation remains under `apps/web` and `apps/api` as a migration reference; it is not the runtime application.
 - The active application is `apps/site` (Astro) and `apps/cms` (Payload + SQLite3).
 - Public visitors can browse the menu, prepare a click-and-collect order, request a reservation and see active flash campaigns.
@@ -91,5 +92,8 @@ GitHub Actions runs the same public build, CMS validation tests, Payload type ge
 
 - [Product definition](PDD.md)
 - [Functional requirements](docs/requirements/FUNCTIONAL-REQUIREMENTS.md)
+- [V2 product definition](docs/v2/PDD.md)
+- [V2 functional discovery](docs/v2/FUNCTIONAL-DISCOVERY.md)
+- [V2 decisions and readiness](docs/v2/DECISIONS.md) · [readiness report](docs/v2/READINESS-REPORT.md)
 - [Architecture contract](docs/architecture/ARCHITECTURE-CONTRACT.md)
 - [Development handoff](docs/architecture/DEVELOPMENT-HANDOFF.md)
