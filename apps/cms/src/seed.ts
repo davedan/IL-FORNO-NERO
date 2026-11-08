@@ -10,7 +10,7 @@ if (!email || !password || password.length < 12) {
 }
 
 const payload = await getPayload({ config })
-const users = await payload.find({ collection: 'users', limit: 1, overrideAccess: true })
+const users = await payload.find({ collection: 'users', where: { email: { equals: email } }, limit: 1, overrideAccess: true })
 if (!users.docs.length) {
   await payload.create({ collection: 'users', overrideAccess: true, data: { email, password, name: 'Administrador inicial', role: 'global_admin', active: true, mustChangePassword: true } })
 }

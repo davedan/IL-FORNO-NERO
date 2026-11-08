@@ -45,7 +45,7 @@ $env:INITIAL_ADMIN_PASSWORD = 'a-long-temporary-password'
 npm run seed
 ```
 
-The seed is idempotent: it only creates the initial administrator if none exists and only inserts the baseline products if absent. Change the temporary password at the first login.
+The seed is idempotent: it creates the administrator matching `INITIAL_ADMIN_EMAIL` only when that email is absent, and synchronises the reference catalogue. Change the temporary password at the first login.
 
 Run the two applications in separate terminals:
 
