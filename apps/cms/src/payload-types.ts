@@ -245,6 +245,7 @@ export interface Campaign {
    * URL pública de la imagen de campaña.
    */
   imageUrl?: string | null;
+  page: '/' | '/carta' | '/carrito' | '/delivery' | '/noticias';
   active: boolean;
   startsAt?: string | null;
   endsAt?: string | null;
@@ -532,6 +533,7 @@ export interface CampaignsSelect<T extends boolean = true> {
   ctaLabel?: T;
   ctaUrl?: T;
   imageUrl?: T;
+  page?: T;
   active?: T;
   startsAt?: T;
   endsAt?: T;

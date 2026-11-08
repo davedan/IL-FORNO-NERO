@@ -1,0 +1,12 @@
+---
+const { page } = Astro.props
+---
+<div data-campaign-page={page}></div>
+<script>
+  import { campaignPage } from '../lib/campaigns'
+  const cms = import.meta.env.PUBLIC_CMS_URL || 'http://localhost:3001'
+  const escapeHTML = (value) => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char])
+  const visibleNow = (campaign) => { const now = new Date(); const day = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][now.getDay()]; const hhmm = now.toTimeString().slice(0, 5); return campaign.active && (!campaign.startsAt || new Date(campaign.startsAt) <= now) && (!campaign.endsAt || new Date(campaign.endsAt) >= now) && (!campaign.weekdays?.length || campaign.weekdays.includes(day)) && (!campaign.startsAtTime || campaign.startsAtTime <= hhmm) && (!campaign.endsAtTime || campaign.endsAtTime >= hhmm) }
+  const showCampaigns = async () => { const target = document.querySelector('[data-campaign-page]'); if (!target) return; try { const { docs = [] } = await (await fetch(`${cms}/api/campaigns?limit=20&where[active][equals]=true`)).json(); const campaigns = docs.filter((campaign) => campaignPage(campaign.page) === target.dataset.campaignPage && visibleNow(campaign)); const show = (index = 0) => { const campaign = campaigns[index]; if (!campaign) return; const dialog = document.createElement('dialog'); dialog.innerHTML = `<button class="close" type="button" aria-label="Cerrar">×</button><p class="eyebrow">Oferta flash</p>${campaign.imageUrl ? `<img src="${escapeHTML(campaign.imageUrl)}" alt="" />` : ''}<h2>${escapeHTML(campaign.title)}</h2><p>${escapeHTML(campaign.body || '')}</p>${campaign.ctaUrl ? `<a class="button" href="${escapeHTML(campaign.ctaUrl)}">${escapeHTML(campaign.ctaLabel || 'Ver más')}</a>` : ''}`; document.body.append(dialog); dialog.showModal(); dialog.querySelector('.close').addEventListener('click', () => { dialog.close(); dialog.remove(); show(index + 1) }, { once: true }) }; show() } catch {} }
+  document.addEventListener('astro:page-load', showCampaigns)
+</script>

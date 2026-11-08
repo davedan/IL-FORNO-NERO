@@ -14,6 +14,7 @@ export const Campaigns: CollectionConfig = {
     { name: 'ctaLabel', type: 'text', localized: true },
     { name: 'ctaUrl', type: 'text' },
     { name: 'imageUrl', type: 'text', admin: { description: 'URL pública de la imagen de campaña.' } },
+    { name: 'page', label: 'Página de aparición', type: 'select', required: true, defaultValue: '/', options: [{ label: 'Principal', value: '/' }, { label: 'Carta', value: '/carta' }, { label: 'Carrito', value: '/carrito' }, { label: 'Delivery', value: '/delivery' }, { label: 'Noticias', value: '/noticias' }] },
     { name: 'active', type: 'checkbox', defaultValue: false, required: true },
     { name: 'startsAt', type: 'date' }, { name: 'endsAt', type: 'date' },
     { name: 'weekdays', type: 'select', hasMany: true, options: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] },

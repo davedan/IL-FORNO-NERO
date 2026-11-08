@@ -2,10 +2,11 @@
 import '../styles/global.css'
 import '../styles/v2.css'
 import { ClientRouter } from 'astro:transitions'
+import Campaigns from '../components/Campaigns.astro'
 const { title = 'Il Forno Nero · Pizzería napoletana en Madrid' } = Astro.props
 ---
 <!doctype html>
 <html lang="es">
   <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content="Pizzería napoletana en Chueca, Madrid. Carta, reservas y pedidos para recoger." /><title>{title}</title><ClientRouter /></head>
-  <body><slot /></body>
+  <body><Campaigns page={Astro.url.pathname} /><slot /></body>
 </html>
